@@ -103,6 +103,7 @@ main{
   .card {
     @apply bg-card p-6 rounded-lg shadow-md border border-border;
   }
+
 }
 
 /* ✅ Mobile Optimierungen */
@@ -110,6 +111,7 @@ main{
   .container {
     @apply px-2;
   }
+
 
   nav {
     @apply flex-col items-start;
