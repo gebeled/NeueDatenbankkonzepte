@@ -1,10 +1,7 @@
 
-import Test from "../components/test";
+import Startseite from "@/components/startseite";
+//import Test from "../components/test";
 
 export default function Home() {
-  return (
-    <div>
-   <Test></Test>
-    </div>
-  );
+  return <Startseite></Startseite>;
 }
