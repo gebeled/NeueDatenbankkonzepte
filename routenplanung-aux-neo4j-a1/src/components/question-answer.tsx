@@ -16,9 +16,9 @@ export default function QuestionAnswer() {
         <CardContent className="flex flex-col items-center ">
           <Accordion type="single" collapsible className="w-full">
             <AccordionItem value="item-1">
-              <AccordionTrigger>Is it accessible?</AccordionTrigger>
+              <AccordionTrigger>Wo finde ich eine Übersicht über alle Tarife?</AccordionTrigger>
               <AccordionContent>
-                Yes. It adheres to the WAI-ARIA design pattern.
+                Eine Übersicht über alle Tarife findest du auf unserer Website, folge dazu folgenden Link: https://www.avv-augsburg.de/tickets-tarife/ticketuebersicht
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-2">
