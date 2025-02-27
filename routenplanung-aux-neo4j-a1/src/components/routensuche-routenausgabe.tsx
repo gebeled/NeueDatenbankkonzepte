@@ -1,24 +1,40 @@
-'use client';
+"use client";
 
 import { Card, CardHeader, CardContent, CardFooter } from "./ui/card";
 import { Button } from "./ui/button";
 import { ArrowRight, ArrowDown } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
 
+// Typdefinitionen
+interface Tram {
+  name: string;
+  duration: number;
+}
 
-export default function Routenausgabe(){
-  const trams = [
-    { name: "1", duration: 60 },
-    { name: "2", duration: 30 },
-    { name: "3", duration: 90 },
-    { name: "4", duration: 45 },
-    { name: "5", duration: 15 },
-  ];
+interface Stop {
+  time: string;
+  name: string;
+}
+
+interface RouteDetail {
+  tramName: string;
+  stops: Stop[];
+  transferTime?: string;
+  arrivalTime?: string;
+}
+
+interface RoutenausgabeProps {
+  trams: Tram[];
+  routeDetails: RouteDetail[];
+}
+
+// Routenausgabe-Komponente
+export default function Routenausgabe({ trams, routeDetails }: RoutenausgabeProps) {
   const totalDuration = trams.reduce((sum, tram) => sum + tram.duration, 0);
   const [showDetails, setShowDetails] = useState(false);
 
-  return(
-    <Card className="bg-gray-50">
+  return (
+    <Card>
       <CardHeader>
         <div className="flex flex-wrap gap-8 routenausgabe-header">
           <span>13:00 - 14:00 Uhr</span>
@@ -52,64 +68,21 @@ export default function Routenausgabe(){
       </CardContent>
       {showDetails && (
         <CardContent>
-          <RouteInDetail />
+          <RouteInDetail routeDetails={routeDetails} />
         </CardContent>
       )}
     </Card>
   );
 }
 
+// Typdefinition für RouteInDetail-Komponente
+interface RouteInDetailProps {
+  routeDetails: RouteDetail[];
+}
 
-
-export function RouteInDetail() {
-  const routeDetails = [
-    {
-      tramName: "Tram 1",
-      stops: [
-        { time: "13:00", name: "Haltestelle A" },
-        { time: "13:10", name: "Haltestelle B" },
-        { time: "13:20", name: "Haltestelle C" },
-      ],
-      transferTime: "5 Minuten",
-    },
-    {
-      tramName: "Tram 2",
-      stops: [
-        { time: "13:25", name: "Haltestelle D" },
-        { time: "13:35", name: "Haltestelle E" },
-      ],
-      transferTime: "3 Minuten",
-    },
-    {
-      tramName: "Tram 3",
-      stops: [
-        { time: "13:38", name: "Haltestelle F" },
-        { time: "13:50", name: "Haltestelle G" },
-        { time: "14:00", name: "Haltestelle H" },
-      ],
-      transferTime: "2 Minuten",
-    },
-    {
-      tramName: "Tram 4",
-      stops: [
-        { time: "14:03", name: "Haltestelle I" },
-        { time: "14:15", name: "Haltestelle J" },
-      ],
-      transferTime: "10 Minuten",
-    },
-    {
-        tramName: "Tram 5",
-        stops: [
-            { time: "14:25", name: "Haltestelle K" },
-            { time: "14:30", name: "Haltestelle L" },
-        ],
-        arrivalTime: "14:30",
-    }
-  ];
-
-  // Ref für den Container der Cards
+// RouteInDetail-Komponente
+export function RouteInDetail({ routeDetails }: RouteInDetailProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  // State, um die maximale Breite zu speichern
   const [cardWidth, setCardWidth] = useState<number | undefined>(undefined);
 
   useEffect(() => {
@@ -117,7 +90,6 @@ export function RouteInDetail() {
       const cards = containerRef.current.querySelectorAll<HTMLElement>(".route-card");
       let max = 0;
       cards.forEach((card) => {
-        // Berechne die natürliche Breite (ohne forcierte Anpassung)
         const width = card.offsetWidth;
         if (width > max) {
           max = width;
@@ -130,13 +102,11 @@ export function RouteInDetail() {
   }, [routeDetails]);
 
   return (
-    // Container, der sich flexibel umbricht – via flex-wrap
-    <div ref={containerRef} className="flex flex-wrap items-stretch gap-4 route-in-detail-container">
+    <div ref={containerRef} className="flex flex-wrap items-stretch gap-4 route-in-detail-container justify-center">
       {routeDetails.map((tram, index) => (
         <React.Fragment key={index}>
           <Card
             className="route-card flex flex-col"
-            // Setze die Breite, falls sie gemessen wurde; ansonsten natürlich
             style={cardWidth ? { width: cardWidth } : {}}
           >
             <CardHeader className="pb-1">
@@ -161,10 +131,7 @@ export function RouteInDetail() {
           </Card>
           {index < routeDetails.length - 1 && (
             <div className="flex items-center arrow-container">
-              {/* Im Desktop-/Tablet-Zustand erscheint ArrowRight */}
               <ArrowRight className="h-6 w-6 text-gray-500 arrow-right" />
-              {/* Im Responsive-Modus (unter 640px) wird per Media Query der ArrowRight ausgeblendet
-                  und stattdessen ArrowDown angezeigt */}
               <ArrowDown className="h-6 w-6 text-gray-500 arrow-down hidden" />
             </div>
           )}
