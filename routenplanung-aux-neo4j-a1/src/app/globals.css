@@ -70,15 +70,19 @@ body {
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground min-h-screen flex flex-col;
   }
 
   header{
-    @apply px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-10;
+    @apply px-4 sm:px-6 lg:px-8 py-4 h-20;
   }
 
 main{
-  @apply px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-10;
+  @apply px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-10 flex-1;
+}
+
+footer{
+  @apply px-4 sm:px-6 lg:px-8 py-4 mt-auto h-16;
 }
 }
 
@@ -123,5 +127,14 @@ main{
 
   nav a {
     @apply block w-full text-left;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
   }
 }
