@@ -18,7 +18,7 @@ export default function QuestionAnswer() {
             <AccordionItem value="item-1">
               <AccordionTrigger>Wo finde ich eine Übersicht über alle Tarife?</AccordionTrigger>
               <AccordionContent>
-                Eine Übersicht über alle Tarife findest du auf unserer Website, folge dazu folgenden Link: https://www.avv-augsburg.de/tickets-tarife/ticketuebersicht
+                Eine Übersicht über alle Tarife findest du auf unserer Website. Folge dazu folgenden Link: <a href="https://www.avv-augsburg.de/tickets-tarife/ticketuebersicht" className="text-blue-500">https://www.avv-augsburg.de/tickets-tarife/ticketuebersicht</a>
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-2">

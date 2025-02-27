@@ -116,56 +116,71 @@ body {
   .container {
     @apply px-2;
   }
-    /* 1) Header: Zeilen brechen, Divider weg, kleiner Abstand */
-    .routenausgabe-header {
-      flex-direction: column !important;
-      gap: 4px !important; /* Weniger vertikaler Abstand */
-    }
-    .routenausgabe-header .divider {
-      display: none !important; /* '|' entfernen */
-    }
+ /* Tablet-Modus: Karten behalten feste Breite, z.B. 250px */
+  .route-card {
+    /* Entferne ggf. fixierte Breiten und setze margin auto, um sie zu zentrieren */
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .route-in-detail-container {
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important; /* ggf. etwas kleinerer vertikaler Abstand */
+  }
+
+  /* Header: Inhalte in einzelne Zeilen, Divider entfernen, kleiner Abstand */
+  .routenausgabe-header {
+    flex-direction: column !important;
+    gap: 4px !important;
+  }
+  .routenausgabe-header .divider {
+    display: none !important;
+  }
   
-    .routenausgabe-grid {
-      grid-template-columns: 1fr !important;
-    }
-    
-    /* 2) Tram-Buttons: Untereinander, größer, linksbündig */
-    .routenausgabe-trams {
-      flex-direction: column !important;
-      align-items: flex-start !important;
-      gap: 6px !important; /* etwas mehr Platz zwischen Buttons */
-    }
+  /* Grid: Tram-Bereich und Details-Button untereinander */
+  .routenausgabe-grid {
+    grid-template-columns: 1fr !important;
+  }
   
-    /* Buttons vergrößern */
-    .routenausgabe-trams button {
-      width: 100% !important;          /* Füllt die ganze Spalte */
-      padding: 1rem 1.5rem !important; /* Größerer Button, aber... */
-      font-size: inherit !important;   /* ...Schriftgröße bleibt wie normal */
-    }
+  /* Tram-Buttons: Falls sie umbrechen, bleiben sie mit dynamischer Breite – hier erlauben wir flex-wrap */
+  .routenausgabe-trams {
+    flex-wrap: wrap !important;
+    gap: 4px !important;
+  }
   
-    /* 3) Details-Button unter den Tram-Buttons, volle Breite */
-    .routenausgabe-details-button {
-      margin-top: 8px !important;       /* Abstand zu den Tram-Buttons */
-      justify-self: start !important;
-      width: 100% !important;
-    }
+  /* Details-Button: in eigener Zeile, volle Breite, linksbündig */
+  .routenausgabe-details-button {
+    grid-column: 1 / -1 !important;
+    margin-top: 8px !important;
+    width: 100% !important;
+    justify-self: start !important;
+  }
   
-    /* 4) RouteInDetail-Cards: Untereinander, statt nebeneinander */
-    .route-in-detail-container {
-      flex-direction: column !important;
-    }
+  /* RouteInDetail: Container wird vertikal gestapelt */
+  .route-in-detail-container {
+    flex-direction: column !important;
+  }
   
-    /* 5) Pfeile: ArrowRight weg, ArrowDown sichtbar & zentriert */
-    .arrow-right {
-      display: none !important;
-    }
-    .arrow-down {
-      display: inline !important;
-    }
-    .arrow-container {
-      justify-content: center !important;  /* Pfeil in die Mitte */
-      margin: 8px 0 !important;           /* Vertikaler Abstand */
-    }
+  .route-card .card-content {
+    padding-bottom: 0.5rem !important; /* statt z.B. 1rem */
+  }
+  .route-card .card-footer {
+    padding-top: 0.5rem !important; /* statt z.B. 1rem */
+  }
+  /* Pfeile: Statt ArrowRight soll ArrowDown erscheinen, zentriert, mit reduziertem vertikalen Abstand */
+  .arrow-right {
+    display: none !important;
+  }
+  .arrow-down {
+    display: inline !important;
+  }
+  .arrow-container {
+    justify-content: center !important;
+    width: 100% !important;
+    margin: 4px 0 !important;
+  }
   
   nav {
     @apply flex-col items-start;
