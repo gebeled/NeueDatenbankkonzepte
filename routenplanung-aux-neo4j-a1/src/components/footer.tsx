@@ -23,6 +23,7 @@ export default function Footer() {
         <div className="flex items-center gap-1">
           <Instagram className="h-4 w-4 text-blue-500" />
           <span>@avv_augsburg</span>
+          <span> Dummer Text</span>
         </div>
       </div>
     </footer>
