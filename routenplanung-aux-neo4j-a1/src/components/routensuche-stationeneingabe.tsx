@@ -3,10 +3,10 @@
 import { useState } from "react";
 import { Button } from "./ui/button";
 import { MoveRight, MapPin } from "lucide-react";
-import {RoutensucheEingabefeld} from "./routensuche-speziellefelder";
-import {RoutensuchePickdate} from "./routensuche-speziellefelder";
-import {RoutensuchePicktime} from "./routensuche-speziellefelder";
-import {RoutensucheCheckboxFilter} from "./routensuche-speziellefelder";
+import {RoutensucheEingabefeld} from "./routensuche-speziellefelder-eingabefeld";
+import {RoutensuchePickdate} from "./routensuche-speziellefelder-pickdate";
+import {RoutensuchePicktime} from "./routensuche-speziellefelder-picktime";
+import {RoutensucheCheckboxFilter} from "./routensuche-speziellefelder-checkboxfilter";
 
 
 export default function Stationeneingabe() {
