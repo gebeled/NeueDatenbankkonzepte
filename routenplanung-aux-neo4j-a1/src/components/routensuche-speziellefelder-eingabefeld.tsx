@@ -25,7 +25,7 @@ export function RoutensucheEingabefeld({ className, text, image: Icon, ...props 
   useEffect(() => {
     async function fetchStations() {
       try {
-        const response = await fetch("/api/stops/all-stops");
+        const response = await fetch("/api/stops");
         const data = await response.json();
         const stationList = data.stops.map((station: string) => ({
           value: station.toLowerCase().replace(/\s+/g, "-"), // Slug-Format
