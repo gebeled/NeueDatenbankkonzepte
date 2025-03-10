@@ -6,10 +6,40 @@ import { Card, CardHeader, CardContent } from "./ui/card";
 import { Button } from "./ui/button";
 import { TrainFront } from "lucide-react";
 import { useState } from "react";
+import { format } from "date-fns";
 
 export default function Routensuche() {
   const [showRouts, setShowRouts] = useState(false);
+  const [routes, setRoutes] = useState([]);
 
+  const [startStation, setStartStation] = useState("");
+  const [endStation, setEndStation] = useState("");
+  const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
+
+  const handleSearch = async () => {
+    try{
+    const response = await fetch("/api/routes", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ startStation, endStation, date, time }),
+  });
+    
+  if (!response.ok) {
+    throw new Error("API-Antwort nicht OK");
+  }
+
+  const data = await response.json();
+  setRoutes(data.routes);    // Setze API-Ergebnisse in state
+  setShowRouts(true);        // Anzeigen der Routenausgabe aktivieren
+} catch (error) {
+  console.error("Fehler beim Abrufen der Routen:", error);
+}
+  }
+  
+  /*
   const routes = [
     {
       id: 1,
@@ -100,6 +130,7 @@ export default function Routensuche() {
       ],
     },
   ];
+*/
 
   return (
     <div className="px-4 sm:px-6 flex justify-center">
@@ -109,18 +140,24 @@ export default function Routensuche() {
           <h1>Routen suchen</h1>
         </CardHeader>
         <CardContent className="flex flex-col items-center ">
-          <Stationeneingabe></Stationeneingabe>
+          <Stationeneingabe
+          onStartStationSelected={(station) => setStartStation(station)}
+          onEndStationSelected={(station) => setEndStation(station)}
+          onDateSelected={(selectedDate) => setDate(format(selectedDate, "yyyy-MM-dd"))}
+          onTimeSelected={(selectedTime) => setTime(selectedTime)}
+          />
         </CardContent>
         <CardContent className="flex justify-end w-full">
           <Button
             className="w-full sm:w-auto"
-            onClick={() => setShowRouts(true)}
+            onClick={handleSearch}
           >
             Suche starten
           </Button>
         </CardContent>
         {showRouts && (
           <CardContent className="border-t border-gray-200 mt-4 pt-4">
+            {/*
             <div className="space-y-8">
               {routes.map((route) => (
                 <Routenausgabe
@@ -130,9 +167,11 @@ export default function Routensuche() {
                 />
               ))}
             </div>
+            */}
           </CardContent>
         )}
       </Card>
     </div>
   );
 }
+

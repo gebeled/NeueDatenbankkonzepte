@@ -13,8 +13,10 @@ import {
 } from "@/components/ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
+
 // Uhrzeit auswählen
-export function RoutensuchePicktime({ className, ...props }: { className?: string }) {
+export function RoutensuchePicktime({ className, onTimeSelected, ...props }: { className?: string; onTimeSelected: (time: string) => void }) {
+
     const [selectedTime, setSelectedTime] = useState<string | null>(null);
     const [open, setOpen] = useState(false);
   
@@ -22,8 +24,11 @@ export function RoutensuchePicktime({ className, ...props }: { className?: strin
       const now = new Date();
       const currentHours = String(now.getHours()).padStart(2, "0");
       const currentMinutes = String(now.getMinutes()).padStart(2, "0");
-      setSelectedTime(`${currentHours}:${currentMinutes}`);
-    }, []);
+      const initialTime = `${currentHours}:${currentMinutes}`;
+      setSelectedTime(initialTime);
+      onTimeSelected(initialTime);
+    }, [onTimeSelected]);
+ 
   
     return (
       <Popover open={open} onOpenChange={setOpen}>
@@ -44,6 +49,7 @@ export function RoutensuchePicktime({ className, ...props }: { className?: strin
                     onSelect={() => {
                       setSelectedTime(time);
                       setOpen(false);
+                      onTimeSelected(time);
                     }}
                     className="cursor-pointer w-full"
                   >

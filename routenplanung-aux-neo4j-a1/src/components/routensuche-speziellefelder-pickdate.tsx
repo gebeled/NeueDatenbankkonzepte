@@ -11,8 +11,16 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 
 
 // Datum auswählen
-export function RoutensuchePickdate({ className, ...props }: { className?: string }) {
+export function RoutensuchePickdate({ className, onDateSelected, ...props }: { className?: string, onDateSelected: (date: Date) => void }) {
+
     const [date, setDate] = useState<Date>();
+
+    const handleDateSelect = (selectedDate: Date | undefined) => {
+      setDate(selectedDate);
+      if (selectedDate) {
+        onDateSelected(selectedDate);
+      }
+    };
   
     return (
       <Popover>
@@ -27,7 +35,7 @@ export function RoutensuchePickdate({ className, ...props }: { className?: strin
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-auto p-0">
-          <Calendar mode="single" selected={date} onSelect={setDate} initialFocus />
+          <Calendar mode="single" selected={date} onSelect={handleDateSelect} initialFocus />
         </PopoverContent>
       </Popover>
     );

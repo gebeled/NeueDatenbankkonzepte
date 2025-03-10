@@ -16,7 +16,8 @@ import {
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 // Eingabefeld für S-Bahn Stationen
-export function RoutensucheEingabefeld({ className, text, image: Icon, ...props }: { className?: string , text?: string, image?: React.ElementType }) {
+export function RoutensucheEingabefeld({ className, text, image: Icon, onStationSelected, ...props }: { className?: string , text?: string, image?: React.ElementType; onStationSelected: (station: string) => void }) {
+  
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState("");
     const [stations, setStations] = useState<{ value: string, label: string }[]>([]);
@@ -39,6 +40,17 @@ export function RoutensucheEingabefeld({ className, text, image: Icon, ...props 
 
     fetchStations();
   }, []);
+
+  const handleSelect = (currentValue: string) => {
+    const newValue = currentValue === value ? "" : currentValue;
+    setValue(newValue);
+    setOpen(false);
+
+    const station = stations.find((s) => s.value === newValue);
+    if (station) {
+      onStationSelected(station.label); // <-- Callback mit Station-Name
+    }
+  };
   
     return (
       <Popover open={open} onOpenChange={setOpen}>
@@ -67,10 +79,7 @@ export function RoutensucheEingabefeld({ className, text, image: Icon, ...props 
                   <CommandItem
                     key={station.value}
                     value={station.value}
-                    onSelect={(currentValue) => {
-                      setValue(currentValue === value ? "" : currentValue);
-                      setOpen(false);
-                    }}
+                    onSelect={handleSelect}
                   >
                     <Check
                       className={cn("mr-2 h-4 w-4", value === station.value ? "opacity-100" : "opacity-0")}
