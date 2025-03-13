@@ -1,7 +1,7 @@
 "use client";
 
 import Stationeneingabe from "../components/routensuche-stationeneingabe";
-import Routenausgabe from "../components/routensuche-routenausgabe";
+//import Routenausgabe from "../components/routensuche-routenausgabe";
 import { Card, CardHeader, CardContent } from "./ui/card";
 import { Button } from "./ui/button";
 import { TrainFront } from "lucide-react";
@@ -10,7 +10,7 @@ import { format } from "date-fns";
 
 export default function Routensuche() {
   const [showRouts, setShowRouts] = useState(false);
-  const [routes, setRoutes] = useState([]);
+  //const [routes, setRoutes] = useState([]);
 
   const [startStation, setStartStation] = useState("");
   const [endStation, setEndStation] = useState("");
@@ -18,26 +18,39 @@ export default function Routensuche() {
   const [time, setTime] = useState("");
 
   const handleSearch = async () => {
-    try{
-    const response = await fetch("/api/routes", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ startStation, endStation, date, time }),
-  });
-    
-  if (!response.ok) {
-    throw new Error("API-Antwort nicht OK");
-  }
-
-  const data = await response.json();
-  setRoutes(data.routes);    // Setze API-Ergebnisse in state
-  setShowRouts(true);        // Anzeigen der Routenausgabe aktivieren
-} catch (error) {
-  console.error("Fehler beim Abrufen der Routen:", error);
-}
-  }
+    if (!startStation || !endStation || !date || !time) {
+      alert("Bitte fülle alle Felder aus, bevor du suchst.");
+      return;
+    }
+  
+    try {
+      const response = await fetch("/api/routes", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ startStation, endStation, date, time }),
+      });
+  
+      if (!response.ok) {
+        throw new Error(`API-Fehler: ${response.status}`);
+      }
+  
+      const data = await response.json();
+  
+      if (!data.routes || data.routes.length === 0) {
+        alert("Keine Routen gefunden. Bitte versuche eine andere Kombination.");
+        return;
+      }
+  
+      //setRoutes(data.routes);
+      setShowRouts(true);
+    } catch (error) {
+      console.error("Fehler beim Abrufen der Routen:", error);
+      alert("Es gab ein Problem mit der Routen-Suche. Bitte versuche es später erneut.");
+    }
+  };
+  
   
   /*
   const routes = [

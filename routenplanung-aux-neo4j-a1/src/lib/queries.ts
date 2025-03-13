@@ -32,12 +32,15 @@ export async function findRoutes(startStation: string, endStation: string, date:
   try {
     const result = await session.run(
       `
-      MATCH (start:Stop {stop_name: $startStation})-[st1:STOP_TIME]->(trip:Trip)-[:OPERATES_ON]->(route:Route),
-            (end:Stop {stop_name: $endStation})-[st2:STOP_TIME]->(trip),
+      MATCH (start:Stop {stop_name: $startStation})
+      MATCH (end:Stop {stop_name: $endStation})
+      MATCH (start)-[st1:STOP_TIME]->(trip:Trip)-[:OPERATES_ON]->(route:Route),
+            (end)-[st2:STOP_TIME]->(trip),
             (trip)-[:OPERATES_ON]->(service:Service)
       WHERE 
-          date($date) >= date(service.start_date) AND date($date) <= date(service.end_date) AND
-          (
+          date($date) >= date(service.start_date) 
+          AND date($date) <= date(service.end_date) 
+          AND (
             (date($date).dayOfWeek = 1 AND service.monday = "1") OR
             (date($date).dayOfWeek = 2 AND service.tuesday = "1") OR
             (date($date).dayOfWeek = 3 AND service.wednesday = "1") OR
@@ -45,18 +48,18 @@ export async function findRoutes(startStation: string, endStation: string, date:
             (date($date).dayOfWeek = 5 AND service.friday = "1") OR
             (date($date).dayOfWeek = 6 AND service.saturday = "1") OR
             (date($date).dayOfWeek = 7 AND service.sunday = "1")
-      AND date($date) >= date(service.start_date)
-      AND date($date) <= date(service.end_date)
-      AND st1.departure_time >= $time
-      RETURN DISTINCT trip.trip_id AS trip_id,
-                      route.route_short_name AS route_short_name,
-                      route.route_long_name AS route_long_name,
-                      st1.departure_time AS departure_time,
-                      st2.arrival_time AS arrival_time
+          )
+          AND st1.departure_time >= $time
+      RETURN DISTINCT 
+          trip.trip_id AS trip_id,
+          route.route_short_name AS route_short_name,
+          route.route_long_name AS route_long_name,
+          st1.departure_time AS departure_time,
+          st2.arrival_time AS arrival_time
       ORDER BY st1.departure_time
       LIMIT 5
       `,
-    { startStation, endStation, date, time }
+      { startStation, endStation, date, time }
     );
 
     const routes: RouteResult[] = result.records.map((record) => ({
@@ -75,4 +78,5 @@ export async function findRoutes(startStation: string, endStation: string, date:
     await session.close();
   }
 }
+
 
