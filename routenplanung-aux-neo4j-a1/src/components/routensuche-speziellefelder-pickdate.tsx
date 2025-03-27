@@ -35,7 +35,7 @@ export function RoutensuchePickdate({ className, onDateSelected, ...props }: { c
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-auto p-0">
-          <Calendar mode="single" selected={date} onSelect={handleDateSelect} initialFocus />
+          <Calendar mode="single" selected={date} onSelect={handleDateSelect} required initialFocus />
         </PopoverContent>
       </Popover>
     );
