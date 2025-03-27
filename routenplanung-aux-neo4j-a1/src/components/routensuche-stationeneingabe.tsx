@@ -9,7 +9,7 @@ import {RoutensuchePicktime} from "./routensuche-speziellefelder-picktime";
 import {RoutensucheCheckboxFilter} from "./routensuche-speziellefelder-checkboxfilter";
 
 
-export default function Stationeneingabe({onStartStationSelected, onEndStationSelected, onDateSelected, onTimeSelected}: {onStartStationSelected: (station: string) => void, onEndStationSelected: (station: string) => void, onDateSelected: (date: Date) => void, onTimeSelected: (time: string) => void}) {
+export default function Stationeneingabe({onStartStationSelected, onEndStationSelected, onDateSelected, onTimeSelected, startError = false, endError = false}: {onStartStationSelected: (station: string) => void, onEndStationSelected: (station: string) => void, onDateSelected: (date: Date) => void, onTimeSelected: (time: string) => void, startError?: boolean, endError?: boolean}) {
 
     const[showFilters, setShowFilters] = useState(false);
 
@@ -17,9 +17,9 @@ export default function Stationeneingabe({onStartStationSelected, onEndStationSe
     <div className="w-full">
       <div className="grid sm:grid-cols-[1fr_auto] grid-cols-1 gap-4 w-full items-center">
         <div className="flex items-center gap-4 flex-wrap">
-          <RoutensucheEingabefeld text="Startstation auswählen" image={MapPin} onStationSelected={onStartStationSelected}></RoutensucheEingabefeld>
+          <RoutensucheEingabefeld text="Startstation auswählen" image={MapPin} onStationSelected={onStartStationSelected} hasError={startError}></RoutensucheEingabefeld>
           <MoveRight className="h-6 w-6 text-gray-600 hidden sm:block"></MoveRight>
-          <RoutensucheEingabefeld text="Zielstation auswählen" image={MapPin} onStationSelected={onEndStationSelected}></RoutensucheEingabefeld>
+          <RoutensucheEingabefeld text="Zielstation auswählen" image={MapPin} onStationSelected={onEndStationSelected} hasError={endError}></RoutensucheEingabefeld>
         </div>
       </div>
       <div className="grid sm:grid-cols-[1fr_auto] grid-cols-1 gap-4 w-full items-center mt-3">

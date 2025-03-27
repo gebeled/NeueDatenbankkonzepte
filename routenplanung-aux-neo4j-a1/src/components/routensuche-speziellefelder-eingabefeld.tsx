@@ -16,7 +16,7 @@ import {
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 // Eingabefeld für S-Bahn Stationen
-export function RoutensucheEingabefeld({ className, text, image: Icon, onStationSelected, ...props }: { className?: string , text?: string, image?: React.ElementType; onStationSelected: (station: string) => void }) {
+export function RoutensucheEingabefeld({ className, text, image: Icon, onStationSelected, hasError = false, ...props }: { className?: string , text?: string, image?: React.ElementType; onStationSelected: (station: string) => void, hasError?: boolean }) {
   
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState("");
@@ -59,7 +59,7 @@ export function RoutensucheEingabefeld({ className, text, image: Icon, onStation
             variant="outline"
             role="combobox"
             aria-expanded={open}
-            className={cn("w-[350px] justify-between", className)}
+            className={cn("w-[350px] justify-between", hasError ? "border border-red-500" : "", className)}
             {...props}
           >
             <div className="flex items-center space-x-2">

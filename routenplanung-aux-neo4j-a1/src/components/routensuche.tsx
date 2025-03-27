@@ -16,10 +16,19 @@ export default function Routensuche() {
   const [endStation, setEndStation] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
+  
+  const [startError, setStartError] = useState(false);
+  const [endError, setEndError] = useState(false);
 
   const handleSearch = async () => {
-    if (!startStation || !endStation || !date || !time) {
-      alert("Bitte fülle alle Felder aus, bevor du suchst.");
+
+    setStartError(false);
+    setEndError(false);
+
+    if (!startStation || !endStation) {
+      if (!startStation) setStartError(true);
+      if (!endStation) setEndError(true);
+      //alert("Bitte fülle alle Felder aus, bevor du suchst.");
       return;
     }
   
@@ -158,6 +167,8 @@ export default function Routensuche() {
           onEndStationSelected={(station) => setEndStation(station)}
           onDateSelected={(selectedDate) => setDate(format(selectedDate, "yyyy-MM-dd"))}
           onTimeSelected={(selectedTime) => setTime(selectedTime)}
+          startError={startError}
+          endError={endError}
           />
         </CardContent>
         <CardContent className="flex justify-end w-full">
