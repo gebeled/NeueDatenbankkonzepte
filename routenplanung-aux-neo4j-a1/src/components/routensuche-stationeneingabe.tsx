@@ -13,6 +13,34 @@ export default function Stationeneingabe({onStartStationSelected, onEndStationSe
 
     const[showFilters, setShowFilters] = useState(false);
 
+    const filterOptions = [
+      "Schnellste Route auswählen",
+      "Minimale Anzahl an Umstiegen",
+      "Barrierefreies Reise durchgehend möglich"
+    ];
+
+    const [selectedFilter, setSelectedFilter] = useState<string>(filterOptions[0]);
+
+    const lineOptions = [
+      "Linie 1",
+      "Linie 2",
+      "Linie 3",
+      "Linie 4",
+      "Linie 6"
+    ];
+
+    const [selectedLine, setSelectedLine] = useState<string[]>([...lineOptions]);
+
+    const toggleLine = (line: string) => {
+      setSelectedLine((prev) => {
+        if (prev.includes(line)) {
+          return prev.filter(item => item !== line);
+        } else {
+          return [...prev, line];
+        }
+      });
+    };
+
   return (
     <div className="w-full">
       <div className="grid sm:grid-cols-[1fr_auto] grid-cols-1 gap-4 w-full items-center">
@@ -36,24 +64,22 @@ export default function Stationeneingabe({onStartStationSelected, onEndStationSe
 {showFilters && (
     <div className="mt-8">
       <div className="flex flex-wrap gap-4">
-        <RoutensucheCheckboxFilter text="Schnellste Route auswählen" checked={true}></RoutensucheCheckboxFilter>
-        <RoutensucheCheckboxFilter text="Minimale Anzahl an Umstiegen"></RoutensucheCheckboxFilter>
-        <RoutensucheCheckboxFilter text="Barrierefreies Reise durchgehend möglich"></RoutensucheCheckboxFilter>
+        {filterOptions.map(option => (
+          <RoutensucheCheckboxFilter key={option} text={option} checked={selectedFilter === option} onChange={() => setSelectedFilter(option)}
+          />
+        ))}
       </div>
       <div className="mt-3">
         <p className="text-sm font-medium">Nur folgende Linien berücksichtigen: </p>
         <div className="flex flex-wrap gap-4 mt-3">
-        <RoutensucheCheckboxFilter text="Linie 1"></RoutensucheCheckboxFilter>
-        <RoutensucheCheckboxFilter text="Linie 2"></RoutensucheCheckboxFilter>
-        <RoutensucheCheckboxFilter text="Linie 3"></RoutensucheCheckboxFilter>
-        <RoutensucheCheckboxFilter text="Linie 4"></RoutensucheCheckboxFilter>
-        <RoutensucheCheckboxFilter text="Linie 6"></RoutensucheCheckboxFilter>
-        <RoutensucheCheckboxFilter text="Linie 9a"></RoutensucheCheckboxFilter>
-        <RoutensucheCheckboxFilter text="Linie 9b"></RoutensucheCheckboxFilter>
-      </div>
+          {lineOptions.map(line => (
+            <RoutensucheCheckboxFilter key={line} text={line} checked={selectedLine.includes(line)} onChange={() => toggleLine(line)}
+            />
+          ))}
+        </div>
         </div>
         </div>
       )}
-      </div>
+      </div>   
   );
 }   

@@ -27,10 +27,10 @@ export default function Werbung() {
                 <Image
                   src={src}
                   alt={`Bild ${index + 1}`}
-                  layout="responsive"
+                  //layout="responsive"
                   width={800}
                   height={450} 
-                  className="rounded-xl object-contain"
+                  className="rounded-xl object-contain w-full h-auto"
                 />
               </div>
             </CarouselItem>

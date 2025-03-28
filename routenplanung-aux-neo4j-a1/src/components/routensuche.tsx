@@ -174,24 +174,23 @@ export default function Routensuche() {
         <CardContent className="flex justify-end w-full">
           <Button
             className="w-full sm:w-auto"
-            onClick={handleSearch}
-          >
+            onClick={handleSearch}>
             Suche starten
           </Button>
         </CardContent>
         {showRouts && (
           <CardContent className="border-t border-gray-200 mt-4 pt-4">
-            {/*
+            {
             <div className="space-y-8">
-              {routes.map((route) => (
+              {/*routes.map((route) => (
                 <Routenausgabe
                   key={route.id}
                   trams={route.trams}
                   routeDetails={route.routeDetails}
                 />
-              ))}
+              ))*/}
             </div>
-            */}
+            }
           </CardContent>
         )}
       </Card>
