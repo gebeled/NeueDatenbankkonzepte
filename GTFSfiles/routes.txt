@@ -1,0 +1,14 @@
+route_id,agency_id,route_short_name,route_long_name,route_type
+1A,AVV,1,Lechhausen - Königsplatz - Göggingen,3
+1B,AVV,1,Göggingen - Königsplatz - Lechhausen,3
+2A,AVV,2,Augsburg West P+R - Haunstetten Nord,3
+2B,AVV,2,Haunstetten Nord - Augsburg West P+R,3
+3A,AVV,3,Hauptbahnhof - Königsplatz - Königsbrunn Zentrum,3
+3B,AVV,3,Königsbrunn Zentrum - Königsplatz - Hauptbahnhof,3
+4A,AVV,4,Oberhausen Nord P+R - Königsplatz - Hauptbahnhof,3
+4B,AVV,4,Hauptbahnhof - Königsplatz - Oberhausen Nord P+R,3
+6A,AVV,6,Stadtbergen - Hauptbahnhof - Friedberg West P+R,3
+6B,AVV,6,Friedberg West P+R - Hauptbahnhof - Stadtbergen,3
+3FU,AVV,3FU,Sonderfahrt Linie 3 via WWK Arena,3
+
+

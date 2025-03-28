@@ -1,0 +1,99 @@
+stop_id,stop_name,stop_lat,stop_lon,location_type,wheelchair_boarding
+lechhausen_ostfr,Lechhausen Nord Ostfriedhof,,,,0
+kuka_partnachweg,Kuka/Partnachweg,,,,1
+curtiusstr,Curtiusstraße,,,,1
+kulturstr,Kulturstraße,,,,0
+schleiermacherstr,Schleiermacherstraße,,,,0
+lechhausen_schloessle,Lechhausen Schlößle,,,,1
+ulrichsbruecke,Ulrichsbrücke,,,,2
+berliner_allee,Berliner Allee,,,,1
+jakobertor,Jakobertor,,,,1
+fuggerei,Fuggerei,,,,1
+pilgerhausstr,Pilgerhausstraße,,,,1
+rathausplatz,Rathausplatz,,,,0
+moritzplatz,Moritzplatz,,,,0
+koenigsplatz,Koenigsplatz,,,,1
+frohsinnstr,Frohsinnstraße,,,,1
+kongress_park,Kongress Am Park,,,,1
+polizeipraesidium,Polizeipräsidium,,,,2
+burgfrieden,Burgfrieden,,,,1
+bergstr,Bergstraße,,,,0
+maria_stern,Maria Stern,,,,1
+klausenberg,Klausenberg,,,,0
+goeggingen_rathaus,Göggingen Rathaus,,,,1
+hessing_kliniken,Hessing-Kliniken,,,,0
+goeggingen,Göggingen,,,,1
+augsburg_west,Augsburg West P+R,,,,1
+uniklinik_bkh,Uniklinik Bkh,,,,0
+stenglinstr,Stenglinstraße,,,,2
+neusaesser_str,Neusässer Straße,,,,0
+kriegshaber,Kriegshaber,,,,0
+schaertlstr,Schärtlstraße,,,,2
+heimgarten,Heimgarten,,,,0
+st_thaddaeus,St. Thaddäus,,,,2
+oberhausen_bf,Oberhausen Bf / H-Haller-Pl,,,,1
+wertachbruecke,Wertachbrücke,,,,2
+senkelbach,Senkelbach,,,,1
+fischertor,Fischertor,,,,0
+mozarthaus,Mozarthaus/Kolping,,,,1
+dom_stadtwerke,Dom/Stadtwerke,,,,0
+th_heuss_platz_ihk,Th.-Heuss-Platz/IHK,,,,2
+rotes_tor,Rotes Tor,,,,1
+haunstetter_str,Haunstetter Straße Bf,,,,1
+schertlinstr,Schertlinstraße,,,,1
+berufsschule,Berufsschule,,,,1
+sportanlage_sued,Sportanlage Süd P+R,,,,0
+beim_duerren_ast,Beim Dürren Ast,,,,0
+volkssiedlung,Volkssiedlung,,,,0
+baugenossenschaft,Baugenossenschaft,,,,0
+hoetzelstr,Hötzelstraße,,,,1
+haunstetten_nord,Haunstetten Nord,,,,0
+hauptbahnhof,Augsburg Hauptbahnhof,,,,2
+von_parseval_str,Von-Parseval-Straße,,,,1
+fachoberschule,Fachoberschule,,,,1
+bukowina_institut,Bukowina-Institut / Pci,,,,2
+universitaet,Universität,,,,1
+bbw_inst_physik,Bbw / Institut Für Physik,,,,1
+innovationspark,Innovationspark / Lfu,,,,2
+bischofsackerweg,Bischofsackerweg,,,,1
+kopernikusstr,Kopernikusstraße,,,,0
+hofackerstr,Hofackerstraße,,,,1
+inninger_str,Inninger Straße P+R,,,,0
+haunstetten_suedwest,Haunstetten Südwest,,,,0
+brahmsstr,Brahmsstraße,,,,1
+koebr_bereitschaftspolizei,Köbr. Bereitschaftspolizei,,,,1
+koebr_guldenstr,Köbr. Guldenstraße,,,,0
+koebr_augsburger_str,Köbr. Augsburger Straße,,,,1
+koebr_mindelheimer_str,Köbr. Mindelheimer Straße,,,,1
+koenigsbrunn_zentrum,Königsbrunn Zentrum,,,,0
+oberhausen_nord,Oberhausen Nord P+R,,,,1
+alpenhof,Alpenhof,,,,2
+eschenhof,Eschenhof,,,,0
+zollernstr,Zollernstraße,,,,0
+baerenwirt_drv,Bärenwirt/DRvS,,,,0
+drentwettstr,Drentwettstraße,,,,1
+plaerrer,Plärrer P+R,,,,1
+curt_frenzel_stadion,Curt-Frenzel-Stadion,,,,0
+klinkertor,Klinkertor,,,,1
+staatstheater,Staatstheater,,,,1
+stadtbergen,Stadtbergen,,,,1
+stadtberger_hof,Stadtberger Hof,,,,1
+westfriedhof,Westfriedhof,,,,1
+bgm_bohl_str,Bgm.-Bohl-Straße,,,,1
+pfersee,Pfersee,,,,1
+herz_jesu_kirche,Herz-Jesu-Kirche,,,,1
+eberlestr,Eberlestraße,,,,1
+luitpoldbruecke,Luitpoldbrücke,,,,0
+rosenaustr,Rosenaustraße,,,,0
+hochschule_augsburg,Hochschule Augsburg,,,,1
+gaertnerstr,Gärtnerstraße,,,,1
+textilmuseum,Textilmuseum,,,,2
+wilhelm_hauff_str,Wilhelm-Hauff-Straße,,,,2
+schwaben_center,Schwaben Center,,,,0
+am_eiskanal,Am Eiskanal,,,,1
+afrabruecke,Afrabrücke,,,,0
+hochzoll_mitte,Hochzoll Mitte,,,,1
+rudolf_diesel_gymn,Rudolf-Diesel-Gymnasium,,,,1
+friedbg_maria_alber,Friedberg Maria Alber,,,,1
+friedberg_west_pr,Friedberg West P+R,,,,1
+wwk_arena,WWK Arena,,,,1
