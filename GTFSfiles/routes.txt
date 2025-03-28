@@ -9,3 +9,6 @@ route_id,agency_id,route_short_name,route_long_name,route_type
 4B,AVV,4,Hauptbahnhof - Königsplatz - Oberhausen Nord P+R,3
 6A,AVV,6,Stadtbergen - Hauptbahnhof - Friedberg West P+R,3
 6B,AVV,6,Friedberg West P+R - Hauptbahnhof - Stadtbergen,3
+3FU,AVV,3FU,Sonderfahrt Linie 3 via WWK Arena,3
+
+
