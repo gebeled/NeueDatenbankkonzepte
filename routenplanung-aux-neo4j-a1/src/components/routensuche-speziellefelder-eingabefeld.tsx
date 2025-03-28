@@ -15,12 +15,17 @@ import {
 } from "@/components/ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
+interface Station{
+  value: string;
+  label: string;
+}
+
 // Eingabefeld für S-Bahn Stationen
 export function RoutensucheEingabefeld({ className, text, image: Icon, onStationSelected, hasError = false, ...props }: { className?: string , text?: string, image?: React.ElementType; onStationSelected: (station: string) => void, hasError?: boolean }) {
   
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState("");
-    const [stations, setStations] = useState<{ value: string, label: string }[]>([]);
+    const [stations, setStations] = useState<Station[]>([]);
 
       // Fetch S-Bahn-Stationen aus der API
   useEffect(() => {
@@ -28,9 +33,9 @@ export function RoutensucheEingabefeld({ className, text, image: Icon, onStation
       try {
         const response = await fetch("/api/stops");
         const data = await response.json();
-        const stationList = data.stops.map((station: string) => ({
-          value: station.toLowerCase().replace(/\s+/g, "-"), // Slug-Format
-          label: station
+        const stationList = data.stops.map((station: { name: string; stop_id: string }) => ({
+          value: station.stop_id, 
+          label: station.name,    
         }));
         setStations(stationList);
       } catch (error) {
@@ -48,7 +53,7 @@ export function RoutensucheEingabefeld({ className, text, image: Icon, onStation
 
     const station = stations.find((s) => s.value === newValue);
     if (station) {
-      onStationSelected(station.label); // <-- Callback mit Station-Name
+      onStationSelected(station.value); 
     }
   };
   

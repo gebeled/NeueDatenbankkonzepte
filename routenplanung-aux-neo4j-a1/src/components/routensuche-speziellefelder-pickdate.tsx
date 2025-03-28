@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useEffect } from "react";
 import { format } from "date-fns";
 import { useState } from "react";
 import { Calendar as CalendarIcon} from "lucide-react";
@@ -14,6 +15,12 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 export function RoutensuchePickdate({ className, onDateSelected, ...props }: { className?: string, onDateSelected: (date: Date) => void }) {
 
   const [date, setDate] = useState<Date | undefined>(new Date());
+
+  useEffect(() => {
+    if (date) {
+      onDateSelected(date);
+    }
+  }, [date, onDateSelected]);
 
   const handleDateSelect = (selectedDate: Date | undefined) => {
     if (selectedDate) {

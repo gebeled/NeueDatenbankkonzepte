@@ -34,6 +34,10 @@ export default function Routensuche() {
     }
   
     try {
+      console.log("Startstation:", startStation);
+      console.log("Endstation:", endStation);
+      console.log("Datum:", date);
+      console.log("Uhrzeit:", time);
       const response = await fetch("/api/routes", {
         method: "POST",
         headers: {
