@@ -15,6 +15,7 @@ interface Stop {
   departure: string;
   route_long_name: string;
   wheelchair_boarding: number;
+  name: string;
 }
 
 // Typdefinition für die gruppierten Stops pro trip_id
@@ -37,12 +38,14 @@ function groupStopsByTrip(stops: Stop[]): GroupedTrip[] {
   return Object.entries(groups).map(([trip_id, stops]) => ({ trip_id, stops }));
 }
 
+/*
 function filterSingleStopGroups(groups: GroupedTrip[]): GroupedTrip[] {
   if (groups.length <= 1) {
     return groups;
   }
   return groups.filter(group => group.stops.length > 1);
 }
+*/
 
 // Wandelt einen HH:MM:SS-Zeitstring in Minuten um (Sekunden werden ignoriert)
 function timeStringToMinutes(time: string): number {
@@ -115,8 +118,8 @@ export default function Routenausgabe({ route }: RoutenausgabeProps) {
 
 
       // Gruppiere das stops-Array anhand der trip_id
-  let groupedTrips = groupStopsByTrip(route.stops);
-  groupedTrips = filterSingleStopGroups(groupedTrips);
+  const groupedTrips = groupStopsByTrip(route.stops);
+  //groupedTrips = filterSingleStopGroups(groupedTrips);
   // Anzahl der distinct trip_ids minus 1 ergibt die Anzahl der Umstiege
   const transfers = groupedTrips.length > 0 ? groupedTrips.length - 1 : 0;
 
@@ -229,9 +232,12 @@ export function RouteInDetail({ routeDetails }: RouteInDetailProps) {
                 {group.stops.map((stop, i) => (
                   <div key={i} className="text-xs flex gap-1">
                     <span>{stop.departure}:</span>
-                    <span>{stop.stop_id}</span>
+                    <span>{stop.name}</span>
                     {toNumberIfNeo4jInt(stop.wheelchair_boarding) === 1 && (
                       <Accessibility className="h-4 w-4 text-green-600"></Accessibility>
+                    )}
+                    {toNumberIfNeo4jInt(stop.wheelchair_boarding) === 2 && (
+                      <Accessibility className="h-4 w-4 text-red-600"></Accessibility>
                     )}
                   </div>
                 ))}
@@ -251,7 +257,7 @@ export function RouteInDetail({ routeDetails }: RouteInDetailProps) {
           )}
         </React.Fragment>
         );
-})}
+    })}
     </div>
   );
 }

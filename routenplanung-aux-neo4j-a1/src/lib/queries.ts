@@ -10,11 +10,12 @@ export interface DijkstraRouteResult {
   stops: Array<{
     trip_id: string;
     route_id: string;
-        wheelchair_boarding: number;
+      wheelchair_boarding: number;
     route_short_name: string;
     route_long_name: string;
     stop_id: string;
     departure: string;
+    name: string;
 
   }>;
 }
@@ -154,6 +155,7 @@ WITH path, overallDuration, departureTime, arrivalTime, routeDuration, transferC
          route_short_name: route.route_short_name,
          route_long_name: route.route_long_name,
          stop_id: sv.stop_id,
+         name: stop.name,
          departure: substring(sv.departure, 0, 5),
          wheelchair_boarding: CASE WHEN includeWheelchairInfo THEN stop.wheelchair_boarding ELSE NULL END
      }) AS stops

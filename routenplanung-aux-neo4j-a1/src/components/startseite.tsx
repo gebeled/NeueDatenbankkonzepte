@@ -12,12 +12,8 @@ export default function Startseite() {
             <Routensuche></Routensuche>
             <Werbung></Werbung>
             <QuestionAnswer></QuestionAnswer>
-
-
         </div>
-        //Header mit Logo und bei KLick auf das Logo Link zur richtigen Seite
-        // Routensuche
-        //Werbung 
+
 
     
     );
