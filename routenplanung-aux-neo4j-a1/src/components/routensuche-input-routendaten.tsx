@@ -8,18 +8,16 @@ import {RoutensuchePickdate} from "./routensuche-speziellefelder-pickdate";
 import {RoutensuchePicktime} from "./routensuche-speziellefelder-picktime";
 import {RoutensucheCheckboxFilter} from "./routensuche-speziellefelder-checkboxfilter";
 
-
-export default function Stationeneingabe({onStartStationSelected, onEndStationSelected, onDateSelected, onTimeSelected, onFilterValuesChange, startError = false, endError = false}: {onStartStationSelected: (station: string) => void, onEndStationSelected: (station: string) => void, onDateSelected: (date: Date) => void, onTimeSelected: (time: string) => void, onFilterValuesChange: (filters: {fewchanges: boolean; wheelchair_boarding: boolean; allowedRoutes: string[]}) => void, startError?: boolean, endError?: boolean}) {
+// Komponente um alle Eingabefelder für die Routensuche zu befüllen
+export default function InputRoutendaten({onStartStationSelected, onEndStationSelected, onDateSelected, onTimeSelected, onFilterValuesChange, startError = false, endError = false}: {onStartStationSelected: (station: string) => void, onEndStationSelected: (station: string) => void, onDateSelected: (date: Date) => void, onTimeSelected: (time: string) => void, onFilterValuesChange: (filters: {fewchanges: boolean; wheelchair_boarding: boolean; allowedRoutes: string[]}) => void, startError?: boolean, endError?: boolean}) {
 
     const[showFilters, setShowFilters] = useState(false);
 
     const routeOptions = ["Schnellste Route auswählen", "Minimale Anzahl an Umstiegen"];
     const [selectedRouteOption, setSelectedRouteOption] = useState<string>(routeOptions[0]);
   
-    // Unabhängiger Filter: Barrierefreies Reisen
     const [wheelchairBoarding, setWheelchairBoarding] = useState<boolean>(false);
-  
-    // Linien-Optionen: Standardmäßig alle ausgewählt
+
     const lineOptions = ["1", "2", "3", "3FU", "4", "6"];
     const [selectedLine, setSelectedLine] = useState<string[]>([...lineOptions]);
 
@@ -34,16 +32,14 @@ export default function Stationeneingabe({onStartStationSelected, onEndStationSe
     };
 
     
-      // Wenn sich Filterwerte ändern, wird onFilterValuesChange aufgerufen.
+  // Wenn sich Filterwerte ändern, wird onFilterValuesChange aufgerufen.
   useEffect(() => {
     onFilterValuesChange({
       fewchanges: selectedRouteOption === "Minimale Anzahl an Umstiegen",
       wheelchair_boarding: wheelchairBoarding,
       allowedRoutes: selectedLine,
     }); 
-  }, [selectedRouteOption, wheelchairBoarding, selectedLine]);
-
-
+  }, [selectedRouteOption, wheelchairBoarding, selectedLine, onFilterValuesChange]);
 
 
   return (

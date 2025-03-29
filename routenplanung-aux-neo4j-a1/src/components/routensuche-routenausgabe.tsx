@@ -6,7 +6,6 @@ import { ArrowRight, ArrowDown, Accessibility } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
 import {DijkstraRouteResult} from "../lib/queries"; 
 
-// Typdefinition für einen einzelnen Stop (basierend auf deinem Rückgabeobjekt)
 interface Stop {
   trip_id: string;
   stop_id: string;
@@ -18,14 +17,21 @@ interface Stop {
   name: string;
 }
 
-// Typdefinition für die gruppierten Stops pro trip_id
 interface GroupedTrip {
   trip_id: string;
   stops: Stop[];
 }
 
+interface RouteInDetailProps{
+  routeDetails: GroupedTrip[];
+}
 
-// Hilfsfunktion, um die stops nach trip_id zu gruppieren
+interface RoutenausgabeProps {
+  route: DijkstraRouteResult;
+}
+
+
+// stops nach trip_id gruppieren
 function groupStopsByTrip(stops: Stop[]): GroupedTrip[] {
   const groups = stops.reduce((acc, stop) => {
     if (!acc[stop.trip_id]) {
@@ -38,16 +44,8 @@ function groupStopsByTrip(stops: Stop[]): GroupedTrip[] {
   return Object.entries(groups).map(([trip_id, stops]) => ({ trip_id, stops }));
 }
 
-/*
-function filterSingleStopGroups(groups: GroupedTrip[]): GroupedTrip[] {
-  if (groups.length <= 1) {
-    return groups;
-  }
-  return groups.filter(group => group.stops.length > 1);
-}
-*/
 
-// Wandelt einen HH:MM:SS-Zeitstring in Minuten um (Sekunden werden ignoriert)
+// Wandelt einen HH:MM:SS-Zeitstring in Minuten um
 function timeStringToMinutes(time: string): number {
   const [hours, minutes] = time.split(":").map(Number);
   return hours * 60 + minutes;
@@ -63,12 +61,12 @@ function getGroupDuration(group: GroupedTrip): number {
 }
 
 
-// Hilfsfunktion, um ein Zeitfenster anzuzeigen
+
 function formatTimeRange(departure: string, arrival: string): string {
   return `${departure} - ${arrival} Uhr`;
 }
 
-// Hilfsfunktion, um eine Minutenanzahl in ein lesbares Format (Std + Min) umzuwandeln
+// Umwandlung Minutenanzahl in ein lesbares Format (Std + Min) 
 function formatDuration(totalMinutes: number): string {
   if (totalMinutes >= 60) {
     const hours = Math.floor(totalMinutes / 60);
@@ -83,48 +81,33 @@ function formatDuration(totalMinutes: number): string {
   return totalMinutes + " Min";
 }
 
+// Umwandlung von Neo4j Integer in normale Zahl
 function toNumberIfNeo4jInt(val: number | { low: number }): number {
   if (typeof val === "number") {
-    // Ist schon eine Zahl
     return val;
   } else if (val && typeof val === "object" && "low" in val) {
-    // Neo4j Integer-Objekt
     return val.low;
   }
-  // Fallback
   return 0;
 }
 
-interface RoutenausgabeProps {
-  route: DijkstraRouteResult;
-}
 
-
-// Routenausgabe-Komponente
+//Grundsätzliche Routenausgabe basierend auf den Daten, die von der API zurückgegeben werden
 export default function Routenausgabe({ route }: RoutenausgabeProps) {
-  //const totalDuration = trams.reduce((sum, tram) => sum + tram.duration, 0);
+
   const [showDetails, setShowDetails] = useState(false);
 
-    // Aus den übergebenen Daten extrahieren wir:
-    const earliestDeparture = route.departureTime; // z. B. "08:02:00"
-    const latestArrival = route.arrivalTime;         // z. B. "09:26:00"
+    const earliestDeparture = route.departureTime; 
+    const latestArrival = route.arrivalTime;       
     const routeDuration = route.routeDuration; 
-    const travelDuration = route.totalTravelDuration;     // z. B. 90 Minuten
+    const travelDuration = route.totalTravelDuration; 
 
-    const numericRouteDuration =
-    typeof routeDuration === "number" ? routeDuration : toNumberIfNeo4jInt(routeDuration);
-  const numericTravelDuration =
-    typeof travelDuration === "number" ? travelDuration : toNumberIfNeo4jInt(travelDuration);
+    const numericRouteDuration = typeof routeDuration === "number" ? routeDuration : toNumberIfNeo4jInt(routeDuration);
+    const numericTravelDuration = typeof travelDuration === "number" ? travelDuration : toNumberIfNeo4jInt(travelDuration);
 
-
-      // Gruppiere das stops-Array anhand der trip_id
-  const groupedTrips = groupStopsByTrip(route.stops);
-  //groupedTrips = filterSingleStopGroups(groupedTrips);
-  // Anzahl der distinct trip_ids minus 1 ergibt die Anzahl der Umstiege
-  const transfers = groupedTrips.length > 0 ? groupedTrips.length - 1 : 0;
-
-
-  const totalGroupDuration = groupedTrips.reduce((sum, group) => sum + getGroupDuration(group), 0);
+    const groupedTrips = groupStopsByTrip(route.stops);
+    const transfers = groupedTrips.length > 0 ? groupedTrips.length - 1 : 0;
+    const totalGroupDuration = groupedTrips.reduce((sum, group) => sum + getGroupDuration(group), 0);
 
   return (
     <Card>
@@ -174,12 +157,7 @@ export default function Routenausgabe({ route }: RoutenausgabeProps) {
 }
 
 
-interface RouteInDetailProps{
-  routeDetails: GroupedTrip[];
-}
-
-
-// RouteInDetail-Komponente --> die passst noch gar nicht weil ich nicht weiß wie genau die daten ausgegeben werden
+// Detailierte Anzeige der ausgegebenen Routen
 export function RouteInDetail({ routeDetails }: RouteInDetailProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [cardWidth, setCardWidth] = useState<number | undefined>(undefined);
@@ -207,7 +185,7 @@ export function RouteInDetail({ routeDetails }: RouteInDetailProps) {
         const firstStop = group.stops[0];
         const lastStop = group.stops[group.stops.length - 1];
 
-                // Berechne Umstiegszeit, falls es eine nächste Gruppe gibt
+                // Berechne Umstiegszeit, falls es einen Umstieg in die nächste Linie gibt
                 let transferTimeStr = "";
                 if (index < routeDetails.length - 1) {
                   const nextFirstDeparture = routeDetails[index + 1].stops[0].departure;

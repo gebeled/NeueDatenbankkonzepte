@@ -6,8 +6,7 @@ import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 
   
-  
-  // Filteroptionen auswählen
+
   export function RoutensucheCheckboxFilter({ className, text, checked = false, onChange, ...props }: { className?: string, text?: string, checked?: boolean, onChange?: (checked: boolean) => void }) {
 
     return (

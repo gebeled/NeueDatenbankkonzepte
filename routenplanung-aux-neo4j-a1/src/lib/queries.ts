@@ -1,6 +1,6 @@
 import { getNeo4jSession } from "./neo4j";
 
-// Das Interface, angepasst an die Query-Ausgabe:
+// Das Interface, angepasst an die Query-Ausgabe der Routenberechnung:
 export interface DijkstraRouteResult {
   totalTravelDuration: number;
   departureTime: string;
@@ -20,7 +20,7 @@ export interface DijkstraRouteResult {
   }>;
 }
 
-
+// Funktion zum Abrufen aller S-Bahn-Stationen
 export async function getAllStops() {
   const session = getNeo4jSession();
   try {
@@ -38,15 +38,15 @@ export async function getAllStops() {
 }
 
 
-// Routensuche anhand Start, Ziel, Datum und Uhrzeit
+// Funktion zur Routenberechnung
 export async function findRoutes(
   startStation: string,
   endStation: string,
-  date: string, // z. B. "2025-03-28"
-  time: string,  // z. B. "08:00:00"
-  wheelchair_boarding: boolean, // true = barrierefreies Reisen
-  fewchanges: boolean, // true = wenige Umstiege
-  allowedRoutes: string[] // array mit strings als erlaubte routen
+  date: string, 
+  time: string,  
+  wheelchair_boarding: boolean,
+  fewchanges: boolean, 
+  allowedRoutes: string[] 
 ): Promise<DijkstraRouteResult[]> {
   const session = getNeo4jSession();
 
@@ -182,17 +182,7 @@ LIMIT 3
       { startStation, endStation, date, time, wheelchair_boarding, fewchanges, allowedRoutes }
     );
 
-    console.log("🚨 Parameter an Neo4j:", {
-      startStation, endStation, date, time, wheelchair_boarding,
-      fewchanges, allowedRoutes,
-      types: {
-        wheelchair_boarding: typeof wheelchair_boarding,
-        fewchanges: typeof fewchanges,
-      }
-    });
-
     const routes: DijkstraRouteResult[] = result.records.map((record) => ({
-      //path: record.get("path"),
       totalTravelDuration: record.get("totalTravelDuration"),
       departureTime: record.get("departureTime"),
       arrivalTime: record.get("arrivalTime"),

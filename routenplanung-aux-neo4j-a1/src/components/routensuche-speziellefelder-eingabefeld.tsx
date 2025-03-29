@@ -27,7 +27,7 @@ export function RoutensucheEingabefeld({ className, text, image: Icon, onStation
     const [value, setValue] = useState("");
     const [stations, setStations] = useState<Station[]>([]);
 
-      // Fetch S-Bahn-Stationen aus der API
+  // Fetch S-Bahn-Stationen aus der API
   useEffect(() => {
     async function fetchStations() {
       try {

@@ -8,6 +8,8 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
+
+// Darstellung der Werbung mithilfe von interaktiven Klicken in einem Karussell
 export default function Werbung() {
   const images = [
     "/Werbung1.jpeg",

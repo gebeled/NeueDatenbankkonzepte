@@ -25,7 +25,7 @@ export function RoutensuchePicktime({
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
 
-  // Default-Uhrzeit berechnen (aktuelle Zeit)
+  // Default-Uhrzeit berechnen (immer die aktuelle Zeit)
   const getCurrentTime = (): string => {
     const now = new Date();
     const hours = String(now.getHours()).padStart(2, "0");
@@ -42,7 +42,7 @@ export function RoutensuchePicktime({
     }
   }, [selectedTime, onTimeSelected, defaultTime]);
 
-  // Neue Sortierfunktion: ausgewählte Zeit + alles danach
+  // Darstellung der möglichen Zeiten: ausgewählte Zeit + alles danach
   const getSortedTimes = (startTime: string) => {
     const index = times.findIndex((t) => t === startTime);
     return [...times.slice(index), ...times.slice(0, index)];
@@ -88,6 +88,7 @@ export function RoutensuchePicktime({
     </Popover>
   );
 }
+
 
 // Alle Minuten eines Tages generieren
 const times = Array.from({ length: 1440 }, (_, i) => {

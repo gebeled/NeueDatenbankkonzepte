@@ -84,14 +84,12 @@ body {
   }
 }
 
-/* ✅ Responsive Styles */
+
 @layer components {
-  /* Flexibles Layout für Mobile-First */
   .container {
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
 
-  /* Responsive Navigation */
   nav {
     @apply flex flex-col sm:flex-row justify-between items-center p-4 bg-primary text-white;
   }
@@ -100,25 +98,22 @@ body {
     @apply text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-primary-foreground transition;
   }
 
-  /* Grid für Karten */
   .grid-container {
     @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6;
   }
 
-  /* Karten-Design */
   .card {
     @apply bg-card p-6 rounded-lg shadow-md border border-border;
   }
 }
 
-/* ✅ Mobile Optimierungen */
+/* Designeinstellungen für das responsive Design */
 @media (max-width: 640px) {
   .container {
     @apply px-2;
   }
- /* Tablet-Modus: Karten behalten feste Breite, z.B. 250px */
+  
   .route-card {
-    /* Entferne ggf. fixierte Breiten und setze margin auto, um sie zu zentrieren */
     margin-left: auto !important;
     margin-right: auto !important;
   }
@@ -127,10 +122,9 @@ body {
     flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
-    gap: 8px !important; /* ggf. etwas kleinerer vertikaler Abstand */
+    gap: 8px !important;
   }
 
-  /* Header: Inhalte in einzelne Zeilen, Divider entfernen, kleiner Abstand */
   .routenausgabe-header {
     flex-direction: column !important;
     gap: 4px !important;
@@ -139,18 +133,15 @@ body {
     display: none !important;
   }
   
-  /* Grid: Tram-Bereich und Details-Button untereinander */
   .routenausgabe-grid {
     grid-template-columns: 1fr !important;
   }
-  
-  /* Tram-Buttons: Falls sie umbrechen, bleiben sie mit dynamischer Breite – hier erlauben wir flex-wrap */
+
   .routenausgabe-trams {
     flex-wrap: wrap !important;
     gap: 4px !important;
   }
   
-  /* Details-Button: in eigener Zeile, volle Breite, linksbündig */
   .routenausgabe-details-button {
     grid-column: 1 / -1 !important;
     margin-top: 8px !important;
@@ -158,18 +149,17 @@ body {
     justify-self: start !important;
   }
   
-  /* RouteInDetail: Container wird vertikal gestapelt */
   .route-in-detail-container {
     flex-direction: column !important;
   }
   
   .route-card .card-content {
-    padding-bottom: 0.5rem !important; /* statt z.B. 1rem */
+    padding-bottom: 0.5rem !important;
   }
   .route-card .card-footer {
-    padding-top: 0.5rem !important; /* statt z.B. 1rem */
+    padding-top: 0.5rem !important; 
   }
-  /* Pfeile: Statt ArrowRight soll ArrowDown erscheinen, zentriert, mit reduziertem vertikalen Abstand */
+
   .arrow-right {
     display: none !important;
   }

@@ -1,6 +1,7 @@
 "use client";
 
-import Stationeneingabe from "../components/routensuche-stationeneingabe";
+import { useCallback } from "react";
+import InputRoutendaten from "./routensuche-input-routendaten";
 import Routenausgabe from "../components/routensuche-routenausgabe";
 import { Card, CardHeader, CardContent } from "./ui/card";
 import { Button } from "./ui/button";
@@ -8,8 +9,9 @@ import { TrainFront } from "lucide-react";
 import { useState } from "react";
 import { format} from "date-fns";
 import { Hourglass } from "lucide-react";
-import  {DijkstraRouteResult} from "../lib/queries";
+import {DijkstraRouteResult} from "../lib/queries";
 
+// Komponente in der die Routensuche durchgeführt / aufgerufen wird und die Ergebnissdaten an die entsprechende Komponente weitergegeben werden zur Darstellung der Ergebnisse
 export default function Routensuche() {
   const [showRouts, setShowRouts] = useState(false);
   const [routes, setRoutes] = useState<DijkstraRouteResult[]>([]);
@@ -29,9 +31,9 @@ export default function Routensuche() {
     allowedRoutes: [] as string[],
   });
 
-  const handleFilterValuesChange = (filters: { fewchanges: boolean; wheelchair_boarding: boolean; allowedRoutes: string[] }) => {
+  const handleFilterValuesChange = useCallback((filters: { fewchanges: boolean; wheelchair_boarding: boolean; allowedRoutes: string[] }) => {
     setFilterValues(filters);
-  };
+  }, []);
 
   const handleSearch = async () => {
 
@@ -41,7 +43,6 @@ export default function Routensuche() {
     if (!startStation || !endStation) {
       if (!startStation) setStartError(true);
       if (!endStation) setEndError(true);
-      //alert("Bitte fülle alle Felder aus, bevor du suchst.");
       return;
     }
   
@@ -65,10 +66,7 @@ export default function Routensuche() {
       }
   
       const data = await response.json();
-      console.log("🚀 Rohdaten vom Server:");
-      console.log(JSON.stringify(data.routes, null, 2));
-      
-
+  
       if (!data.routes || data.routes.length === 0) {
         setRoutes([]);
       } else{
@@ -93,7 +91,7 @@ export default function Routensuche() {
           <h1>Routen suchen</h1>
         </CardHeader>
         <CardContent className="flex flex-col items-center ">
-          <Stationeneingabe
+          <InputRoutendaten
           onStartStationSelected={(station) => setStartStation(station)}
           onEndStationSelected={(station) => setEndStation(station)}
           onDateSelected={(selectedDate) => setDate(format(selectedDate, "yyyy-MM-dd"))}
