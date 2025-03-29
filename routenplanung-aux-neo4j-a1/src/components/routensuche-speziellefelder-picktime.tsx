@@ -93,5 +93,5 @@ export function RoutensuchePicktime({
 const times = Array.from({ length: 1440 }, (_, i) => {
   const hours = String(Math.floor(i / 60)).padStart(2, "0");
   const minutes = String(i % 60).padStart(2, "0");
-  return `${hours}:${minutes}:00`;
+  return `${hours}:${minutes}`;
 });
