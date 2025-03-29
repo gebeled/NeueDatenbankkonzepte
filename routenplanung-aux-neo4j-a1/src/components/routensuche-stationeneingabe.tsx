@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "./ui/button";
 import { MoveRight, MapPin } from "lucide-react";
 import {RoutensucheEingabefeld} from "./routensuche-speziellefelder-eingabefeld";
@@ -9,26 +9,18 @@ import {RoutensuchePicktime} from "./routensuche-speziellefelder-picktime";
 import {RoutensucheCheckboxFilter} from "./routensuche-speziellefelder-checkboxfilter";
 
 
-export default function Stationeneingabe({onStartStationSelected, onEndStationSelected, onDateSelected, onTimeSelected, startError = false, endError = false}: {onStartStationSelected: (station: string) => void, onEndStationSelected: (station: string) => void, onDateSelected: (date: Date) => void, onTimeSelected: (time: string) => void, startError?: boolean, endError?: boolean}) {
+export default function Stationeneingabe({onStartStationSelected, onEndStationSelected, onDateSelected, onTimeSelected, onFilterValuesChange, startError = false, endError = false}: {onStartStationSelected: (station: string) => void, onEndStationSelected: (station: string) => void, onDateSelected: (date: Date) => void, onTimeSelected: (time: string) => void, onFilterValuesChange: (filters: {fewchanges: boolean; wheelchair_boarding: boolean; allowedRoutes: string[]}) => void, startError?: boolean, endError?: boolean}) {
 
     const[showFilters, setShowFilters] = useState(false);
 
-    const filterOptions = [
-      "Schnellste Route auswählen",
-      "Minimale Anzahl an Umstiegen",
-      "Barrierefreies Reise durchgehend möglich"
-    ];
-
-    const [selectedFilter, setSelectedFilter] = useState<string>(filterOptions[0]);
-
-    const lineOptions = [
-      "Linie 1",
-      "Linie 2",
-      "Linie 3",
-      "Linie 4",
-      "Linie 6"
-    ];
-
+    const routeOptions = ["Schnellste Route auswählen", "Minimale Anzahl an Umstiegen"];
+    const [selectedRouteOption, setSelectedRouteOption] = useState<string>(routeOptions[0]);
+  
+    // Unabhängiger Filter: Barrierefreies Reisen
+    const [wheelchairBoarding, setWheelchairBoarding] = useState<boolean>(false);
+  
+    // Linien-Optionen: Standardmäßig alle ausgewählt
+    const lineOptions = ["1", "2", "3", "3FU", "4", "6"];
     const [selectedLine, setSelectedLine] = useState<string[]>([...lineOptions]);
 
     const toggleLine = (line: string) => {
@@ -40,6 +32,19 @@ export default function Stationeneingabe({onStartStationSelected, onEndStationSe
         }
       });
     };
+
+    
+      // Wenn sich Filterwerte ändern, wird onFilterValuesChange aufgerufen.
+  useEffect(() => {
+    onFilterValuesChange({
+      fewchanges: selectedRouteOption === "Minimale Anzahl an Umstiegen",
+      wheelchair_boarding: wheelchairBoarding,
+      allowedRoutes: selectedLine,
+    }); 
+  }, [selectedRouteOption, wheelchairBoarding, selectedLine]);
+
+
+
 
   return (
     <div className="w-full">
@@ -64,16 +69,17 @@ export default function Stationeneingabe({onStartStationSelected, onEndStationSe
 {showFilters && (
     <div className="mt-8">
       <div className="flex flex-wrap gap-4">
-        {filterOptions.map(option => (
-          <RoutensucheCheckboxFilter key={option} text={option} checked={selectedFilter === option} onChange={() => setSelectedFilter(option)}
+        {routeOptions.map(option => (
+          <RoutensucheCheckboxFilter key={option} text={option} checked={selectedRouteOption === option} onChange={() => setSelectedRouteOption(option)}
           />
         ))}
+        <RoutensucheCheckboxFilter text="Barrierefreies Reisen kennzeichnen" checked={wheelchairBoarding} onChange={() => setWheelchairBoarding((prev) => !prev)} />
       </div>
       <div className="mt-3">
         <p className="text-sm font-medium">Nur folgende Linien berücksichtigen: </p>
         <div className="flex flex-wrap gap-4 mt-3">
           {lineOptions.map(line => (
-            <RoutensucheCheckboxFilter key={line} text={line} checked={selectedLine.includes(line)} onChange={() => toggleLine(line)}
+            <RoutensucheCheckboxFilter key={line} text={`Linie ${line}`} checked={selectedLine.includes(line)} onChange={() => toggleLine(line)}
             />
           ))}
         </div>

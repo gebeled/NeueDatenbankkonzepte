@@ -2,7 +2,7 @@
 
 import { Card, CardHeader, CardContent, CardFooter } from "./ui/card";
 import { Button } from "./ui/button";
-import { ArrowRight, ArrowDown } from "lucide-react";
+import { ArrowRight, ArrowDown, Accessibility } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
 import {DijkstraRouteResult} from "../lib/queries"; 
 
@@ -14,6 +14,7 @@ interface Stop {
   route_short_name: string;
   departure: string;
   route_long_name: string;
+  wheelchair_boarding: number;
 }
 
 // Typdefinition für die gruppierten Stops pro trip_id
@@ -223,10 +224,15 @@ export function RouteInDetail({ routeDetails }: RouteInDetailProps) {
               <h3 className="text-sm font-semibold">Linie: {firstStop.route_short_name}</h3>
             </CardHeader>
             <CardContent className="flex flex-col flex-1 pt-1 pb-1">
+              
               <div className="space-y-1">
                 {group.stops.map((stop, i) => (
                   <div key={i} className="text-xs">
-                    <span>{stop.departure}:</span> <span>{stop.stop_id}</span>
+                    <span>{stop.departure}:</span>
+                    <span>{stop.stop_id}</span>
+                    {Number(stop.wheelchair_boarding) === 1 && (
+                      <Accessibility className="h-4 w-4 text-green-500"></Accessibility>
+                    )}
                   </div>
                 ))}
               </div>

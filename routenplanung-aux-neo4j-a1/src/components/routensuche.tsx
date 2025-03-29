@@ -23,6 +23,16 @@ export default function Routensuche() {
   const [startError, setStartError] = useState(false);
   const [endError, setEndError] = useState(false);
 
+  const [filterValues, setFilterValues] = useState({
+    fewchanges: false,
+    wheelchair_boarding: false,
+    allowedRoutes: [] as string[],
+  });
+
+  const handleFilterValuesChange = (filters: { fewchanges: boolean; wheelchair_boarding: boolean; allowedRoutes: string[] }) => {
+    setFilterValues(filters);
+  };
+
   const handleSearch = async () => {
 
     setStartError(false);
@@ -41,12 +51,13 @@ export default function Routensuche() {
       console.log("Endstation:", endStation);
       console.log("Datum:", date);
       console.log("Uhrzeit:", time);
+      console.log("Filterwerte:", filterValues);
       const response = await fetch("/api/routes", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ startStation, endStation, date, time }),
+        body: JSON.stringify({ startStation, endStation, date, time, wheelchair_boarding: filterValues.wheelchair_boarding, fewchanges: filterValues.fewchanges,  allowedRoutes: filterValues.allowedRoutes }),
       });
   
       if (!response.ok) {
@@ -54,7 +65,10 @@ export default function Routensuche() {
       }
   
       const data = await response.json();
-  
+      console.log("🚀 Rohdaten vom Server:");
+      console.log(JSON.stringify(data.routes, null, 2));
+      
+
       if (!data.routes || data.routes.length === 0) {
         setRoutes([]);
       } else{
@@ -84,6 +98,7 @@ export default function Routensuche() {
           onEndStationSelected={(station) => setEndStation(station)}
           onDateSelected={(selectedDate) => setDate(format(selectedDate, "yyyy-MM-dd"))}
           onTimeSelected={(selectedTime) => setTime(selectedTime)}
+          onFilterValuesChange={handleFilterValuesChange}
           startError={startError}
           endError={endError}
           />
