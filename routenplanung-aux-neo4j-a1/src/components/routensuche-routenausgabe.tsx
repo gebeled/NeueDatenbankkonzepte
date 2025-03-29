@@ -139,7 +139,7 @@ export default function Routenausgabe({ route }: RoutenausgabeProps) {
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-9 gap-4 routenausgabe-grid">
-          <div className="col-span-7 flex gap-1 routenausgabe-trams">
+          <div className="col-span-7 flex gap-1 routenausgabe-trams max-w-full">
             {groupedTrips.map((group) => {
 
               const groupDuration = getGroupDuration(group);
@@ -147,7 +147,7 @@ export default function Routenausgabe({ route }: RoutenausgabeProps) {
               return(
               <Button
                 key={group.trip_id}
-                style={{ width: `${widthPercentage}%` }} // hier wird die breite gesetzt aber ich glaub das passt noch nicht
+                style={{ width: `${widthPercentage}%`}}
                 variant="outline"
                 className="border-blue-500 border-2 hover:bg-background hover:text-foreground cursor-default"
               >
@@ -201,7 +201,7 @@ export function RouteInDetail({ routeDetails }: RouteInDetailProps) {
   }, [routeDetails]);
 
   return (
-    <div ref={containerRef} className="flex flex-wrap items-stretch gap-4 route-in-detail-container justify-center">
+    <div ref={containerRef} className="flex flex-wrap items-stretch gap-4 route-in-detail-container justify-center max-w-full">
       {routeDetails.map((group, index) => {
 
         const firstStop = group.stops[0];
@@ -221,7 +221,13 @@ export function RouteInDetail({ routeDetails }: RouteInDetailProps) {
         <React.Fragment key={index}>
           <Card
             className="route-card flex flex-col"
-            style={cardWidth ? { width: cardWidth } : {}}
+            style={{
+              width: cardWidth
+                ? Math.min(cardWidth, containerRef.current?.offsetWidth ?? cardWidth)
+                : undefined,
+              maxWidth: "100%",
+              flexShrink: 1,
+            }}
           >
             <CardHeader className="pb-1">
               <h3 className="text-sm font-semibold">Linie: {firstStop.route_short_name}</h3>
