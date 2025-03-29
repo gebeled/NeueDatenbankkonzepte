@@ -51,7 +51,7 @@ export default function QuestionAnswer() {
               </AccordionTrigger>
               <AccordionContent>
                 Diese Routenplanung schließt alle S-Bahn Linien des AVV ein.
-                Dazu gehören die Trams, 1,2,3,4,6,9a und 9b.
+                Dazu gehören die Linien, 1,2,3,4 und 6 sowie die Sonderlinie 3FU die zur WWK Arena fährt.
               </AccordionContent>
             </AccordionItem>
           </Accordion>
