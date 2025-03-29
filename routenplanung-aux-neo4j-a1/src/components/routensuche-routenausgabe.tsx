@@ -227,11 +227,11 @@ export function RouteInDetail({ routeDetails }: RouteInDetailProps) {
               
               <div className="space-y-1">
                 {group.stops.map((stop, i) => (
-                  <div key={i} className="text-xs">
+                  <div key={i} className="text-xs flex gap-1">
                     <span>{stop.departure}:</span>
                     <span>{stop.stop_id}</span>
-                    {Number(stop.wheelchair_boarding) === 1 && (
-                      <Accessibility className="h-4 w-4 text-green-500"></Accessibility>
+                    {toNumberIfNeo4jInt(stop.wheelchair_boarding) === 1 && (
+                      <Accessibility className="h-4 w-4 text-green-600"></Accessibility>
                     )}
                   </div>
                 ))}
