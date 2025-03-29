@@ -1,36 +1,32 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Getting started
 
-## Getting Started
 
-First, run the development server:
+# Erstellen Sie bitte eine eigene .env.local Datei mit folgendem Inhalt, um die Verbindung zu der Instanz der Graphdatenbank in Neo4j herstellen zu können
+NEO4J_URI=neo4j+s://98103657.databases.neo4j.io
+NEO4J_USERNAME=neo4j
+NEO4J_PASSWORD=6XHdTu44QPJVVLbts9vLI0WNkE9tFTsTHFy9vPsqZnA
 
-```bash
+
+# Anschließend kann das Projekt gestartet werden
+npm i
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+# Wenn Sie sich den Aufbau der Graphdatenbank in Neo4j anschauen möchten, melden Sie sich bitte mit folgenden Angaben bei Neo4j an
+Link:       https://login.neo4j.com/u/login/identifier?state=hKFo2SBRVW1PaFJ4SDV4RmFOcklTWjktcklMQ2dWcEhNMXBCNqFur3VuaXZlcnNhbC1sb2dpbqN0aWTZIEt0V2RSYXlPU3g2Ujlnc192T2pIUzd6dHZYSU80ejBpo2NpZNkgRXZ2MmNjWFBjOHVPeGV3bzBJalkyMFlJckg3VmtKVzk
+Email:      neo4j.aura.testuser@web.de
+Passwort:   8y-j4v5NJ6wwH4g
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Es kann passieren, dass Sie bei der ersten Anmeldung einen Code eingeben müssen, dieser wird an dieselbe Email-Adresse geschickt mit der Sie sich bei Neo4j anmelden können. Dazu können sie sich unter https://web.de/ mit der Email und dem selben Passwort anmelden.
 
-## Learn More
+Falls die "Instance01 Upgrade" unter Instances bei Ihenen nicht angezeigt werden sollte, gehen Sie bitte in Ihr Email-Postfach unter Favoriten und Klicken Sie auf den Link in der Email, um unserem Team beizutreten und folglich Zugriff auf die "Instance01Upgrade" zu bekommen.
 
-To learn more about Next.js, take a look at the following resources:
+Verbinden Sie im nächsten Schritt diese Instanz, um Sie zum Laufen zu bekommen. Navigieren Sie dazu zu "Query", klicken Sie auf den Pfeil nach unten neben "No instance connected", klicken Sie dann auf "Connect to instance" und connecten Sie die Instanz "Instance01 Upgrade". Daraufhin werden Sie aufgefordert ein Passwort einzugeben. 
+NEO4J_PASSWORD=6XHdTu44QPJVVLbts9vLI0WNkE9tFTsTHFy9vPsqZnA
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Wenn Sie sich unsere Queries in Neo4j anzeigen lassen wollen,
+können Sie unter dem Reiter Query auf "Saved Cypher" gehen und die Datei "neo4j_query_saved_cypher_2025-3-29.csv" importieren. Diese haben wir Ihnen in der Abgabe per Mail mitgeschickt. 
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# Viel Spaß mit userem Projekt 
