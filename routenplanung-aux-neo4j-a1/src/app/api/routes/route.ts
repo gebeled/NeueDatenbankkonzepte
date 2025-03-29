@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
   
   
       // Routen abrufen
-      const routes = await findRoutes(startStation, endStation, date, time, fewchanges, wheelchair_boarding, allowedRoutes);
+      const routes = await findRoutes(startStation, endStation, date, time, wheelchair_boarding, fewchanges, allowedRoutes);
   
       return NextResponse.json({ routes });
     } catch (error) {

@@ -50,15 +50,15 @@ export async function findRoutes(
   const session = getNeo4jSession();
 
   try {
-    const result = await session.run(
+    const result = await session.run(      
       `
 // Eingabeparameter
 WITH $startStation AS startStopId,
      $endStation AS endStopId,
      $time AS depTimeStr,
      $date AS inputDate,
-     //$wheelchair_boarding AS includeWheelchairInfo,
-     true AS includeWheelchairInfo,
+     $wheelchair_boarding AS includeWheelchairInfo,
+     //true AS includeWheelchairInfo,
      $fewchanges AS useTransferOptimization,
      1 AS maxTransfers,
      $allowedRoutes AS allowedRouteShortNames 
@@ -173,11 +173,21 @@ RETURN path,
        transferCount,
        stops
 ORDER BY 
-    CASE WHEN useTransferOptimization THEN transferCount ELSE overallDuration END ASC
+  CASE WHEN useTransferOptimization THEN transferCount ELSE overallDuration END ASC,
+  overallDuration ASC
 LIMIT 3
       `,
       { startStation, endStation, date, time, wheelchair_boarding, fewchanges, allowedRoutes }
     );
+
+    console.log("🚨 Parameter an Neo4j:", {
+      startStation, endStation, date, time, wheelchair_boarding,
+      fewchanges, allowedRoutes,
+      types: {
+        wheelchair_boarding: typeof wheelchair_boarding,
+        fewchanges: typeof fewchanges,
+      }
+    });
 
     const routes: DijkstraRouteResult[] = result.records.map((record) => ({
       //path: record.get("path"),
