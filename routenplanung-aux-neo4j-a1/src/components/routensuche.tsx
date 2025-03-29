@@ -7,6 +7,7 @@ import { Button } from "./ui/button";
 import { TrainFront } from "lucide-react";
 import { useState } from "react";
 import { format} from "date-fns";
+import { Hourglass } from "lucide-react";
 import  {DijkstraRouteResult} from "../lib/queries";
 
 export default function Routensuche() {
@@ -96,7 +97,11 @@ export default function Routensuche() {
         </CardContent>
         {loading && (
           <CardContent className="border-t border-gray-200 mt-4 pt-4">
-            <p className="text-sm">Die optimale Route wird gesucht...</p>
+            <div className="flex items-start space-x-2">
+            <Hourglass className="h-4 w-4 text-gray-800"></Hourglass>
+              <p className="text-sm">Die besten Routen werden gesucht...</p>
+
+            </div>
           </CardContent>
         )}
         {showRouts && !loading &&(
